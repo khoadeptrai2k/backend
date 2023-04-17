@@ -142,6 +142,39 @@ const ManagerController = {
       console.log(error);
     }
   },
+
+  updateRoleStaffToMaster: async (req, res) => {
+    try {
+
+      const exist_staff = await Users.findById(req.params.id);
+      if (!exist_staff) return res.status(400).json({ msg: "The staff doesnt exists." });
+
+      const update_staff = {
+        role: "Master",
+      };
+      await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);
+
+      res.json({ message: "Staff Updated role to master successfully." });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  updateRoleStaffToManager: async (req, res) => {
+    try {
+
+      const exist_staff = await Users.findById(req.params.id);
+      if (!exist_staff) return res.status(400).json({ msg: "The staff doesnt exists." });
+
+      const update_staff = {
+        role: "Manager",
+      };
+      await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);
+
+      res.json({ message: "Staff Updated role to manager successfully." });
+    } catch (error) {
+      console.log(error);
+    }
+  },
   
 };
 

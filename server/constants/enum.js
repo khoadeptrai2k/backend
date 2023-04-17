@@ -11,6 +11,7 @@ const Role = {
   STAFF: "Staff",
   ADMIN: "Admin",
   MANAGER: "Manager",
+  MASTER: 'Master'
 };
 
 const TypeHistory = {

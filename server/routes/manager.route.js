@@ -15,5 +15,8 @@ router.post("/createStaff", auth, authManager, ManagerController.createStaff)
 router.patch("/updateStaff/:id", auth, authManager, ManagerController.updateStaff)
 router.delete("/deleteStaff/:id", auth, authManager, ManagerController.deleteStaff)
 
+router.patch("/updateRoleStaffToMaster/:id", auth, authManager, ManagerController.updateRoleStaffToMaster)
+router.patch("/updateRoleStaffToManager/:id", auth, authManager, ManagerController.updateRoleStaffToManager)
+
 
 module.exports = router;
