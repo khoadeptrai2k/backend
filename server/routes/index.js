@@ -5,7 +5,8 @@ var router = express.Router();
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
-router.use("/admin", require("./user.route"));
+router.use("/user", require("./user.route"));
+router.use("/admin", require("./admin.route"));
 router.use("/profile", require("./profile.route"));
 
 module.exports = router;
