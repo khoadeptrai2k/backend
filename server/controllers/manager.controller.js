@@ -39,7 +39,7 @@ const ManagerController = {
   deleteUserGroup: async (req, res) => {
     try {
       const exist_usergroup = await UserGroups.findById(req.params.id);
-      if (exist_usergroup) return res.status(400).json({ msg: "The UserGroup already exists." });
+      if (!exist_usergroup) return res.status(400).json({ msg: "The UserGroup doesnt exists." });
 
       await exist_usergroup.findOneAndDelete({ _id: req.params.id });
       res.json({ message: "UserGroup deleted successfully." });
@@ -52,7 +52,7 @@ const ManagerController = {
       const { name, staffs, masters } = req.body;
 
       const exist_usergroup = await UserGroups.findById(req.params.id);
-      if (exist_usergroup) return res.status(400).json({ msg: "The UserGroup already exists." });
+      if (!exist_usergroup) return res.status(400).json({ msg: "The UserGroup doesnt exists." });
 
       const update_usergroup = {
         name,

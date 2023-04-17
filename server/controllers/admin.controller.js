@@ -18,7 +18,7 @@ const AdminController = {
         staffId,
         avatar,
         groupsId,
-        role,
+        role: "MANAGER",
         password: passwordHash,
       });
 
@@ -40,6 +40,44 @@ const AdminController = {
       console.log(error);
     }
   },
+  deleteManager: async (req, res) => {
+    try {
+      const exist_manager = await Users.findById(req.params.id);
+      if (!exist_manager) return res.status(400).json({ msg: "The manager doesnt exists." });
+
+      await Users.findOneAndDelete({ _id: req.params.id });
+      res.json({ message: "Manager deleted successfully." });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  updateManager: async (req, res) => {
+    try {
+      const { fullName, phone, email, staffId, avatar, groupsId, role } = req.body;
+
+      const exist_manager = await Users.findById(req.params.id);
+      if (!exist_manager) return res.status(400).json({ msg: "The manager doesnt exists." });
+
+      let passwordHash = await bcrypt.hash("123456", 10);
+
+      const update_manager = {
+        fullName,
+        phone,
+        email,
+        staffId,
+        avatar,
+        groupsId,
+        role,
+        password: passwordHash,
+      };
+      await Users.findByIdAndUpdate({ _id: req.params.id }, update_manager);
+
+      res.json({ message: "Manager Updated successfully." });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  
 
   getWorkSpaces: async (req, res) => {
     try {
@@ -78,7 +116,7 @@ const AdminController = {
   deleteWorkSpace: async (req, res) => {
     try {
       const exist_workspace = await WorkSpace.findById(req.params.id);
-      if (exist_workspace) return res.status(400).json({ msg: "The workspace already exists." });
+      if (!exist_workspace) return res.status(400).json({ msg: "The workspace doesnt exists." });
 
       await WorkSpace.findOneAndDelete({ _id: req.params.id });
       res.json({ message: "Workspace deleted successfully." });
@@ -91,7 +129,7 @@ const AdminController = {
       const { name, hrChannel, dayOffChannel } = req.body;
 
       const exist_workspace = await WorkSpace.findById(req.params.id);
-      if (exist_workspace) return res.status(400).json({ msg: "The workspace already exists." });
+      if (!exist_workspace) return res.status(400).json({ msg: "The workspace doesnt exists." });
 
       const update_workspace = {
         name,
