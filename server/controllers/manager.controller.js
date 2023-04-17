@@ -150,7 +150,7 @@ const ManagerController = {
       if (!exist_staff) return res.status(400).json({ msg: "The staff doesnt exists." });
 
       const update_staff = {
-        role: "Master",
+        role: req.body.role || "Staff",
       };
       await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);
 
@@ -166,7 +166,7 @@ const ManagerController = {
       if (!exist_staff) return res.status(400).json({ msg: "The staff doesnt exists." });
 
       const update_staff = {
-        role: "Manager",
+        role: req.body.role || "Manager",
       };
       await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);
 
